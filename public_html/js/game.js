@@ -1,0 +1,57 @@
+
+/* Game namespace */
+var game = {
+
+	// an object where to store game information
+	data : {
+		// score
+		score : 0
+	},
+	
+	
+	// Run on page load.
+	"onload" : function () {
+	// Initialize the video.
+	if (!me.video.init("screen", 1067, 600, true, 1.0)) {
+		alert("Your browser does not support HTML5 canvas.");
+		return;
+	}
+
+	// add "#debug" to the URL to enable the debug Panel
+	if (document.location.hash === "#debug") {
+		window.onReady(function () {
+			me.plugin.register.defer(debugPanel, "debug");
+		});
+	}
+
+	// Initialize the audio.
+	me.audio.init("mp3,ogg");
+
+	// Set a callback to run when loading is complete.
+	me.loader.onload = this.loaded.bind(this);
+
+	// Load the resources.
+	me.loader.preload(game.resources);
+
+	// Initialize melonJS and display a loading screen.
+	me.state.change(me.state.LOADING);
+},
+
+	// Run on game resources loaded.
+	"loaded" : function () {
+		me.state.set(me.state.MENU, new game.TitleScreen());
+		me.state.set(me.state.PLAY, new game.PlayScreen());
+                 me.entityPool.add("player", game.PlayerEntity);
+                 me.input.bindKey(me.input.KEY.D, "d");
+                   me.input.bindKey(me.input.KEY.A, "a");
+                    me.input.bindKey(me.input.KEY.W, "w");
+                     me.input.bindKey(me.input.KEY.S, "s");
+                  me.entityPool.add("player2", game.PlayerEntity);
+                  me.entityPool.add("fly", game.FlyEntity);
+                   me.entityPool.add("levelTrigger", game.LevelTrigger);
+                             me.entityPool.add("door1", game.DoorTrigger);
+		// Start the game.
+		me.state.change(me.state.PLAY);
+	}
+};
+         

@@ -18,7 +18,8 @@ game.resources = [
                                 {name: "snow", type:"image", src: "data/img/snow.png"},
                                    {name: "wolf", type:"image", src: "data/img/wolf.png"},
                                    {name: "tigger", type:"image", src: "data/img/tigger.png"},
-                                                                        {name: "black", type:"image", src: "data/img/black.png"},
+                               {name: "black", type:"image", src: "data/img/black.png"},
+                             {name: "1", type:"image", src: "data/img/1.png"},
 	/* Atlases 
 	 * @example
 	 * {name: "example_tps", type: "tps", src: "data/img/example_tps.json"},
@@ -45,7 +46,6 @@ game.resources = [
 	 * @example
 	 * {name: "example_bgm", type: "audio", src: "data/bgm/", channel : 1},
 	 */	
-        {name: "PolarIce", type: "audio", src: "data/bgm/", channel : 2}
 	/* Sound effects. 
 	 * @example
 	 * {name: "example_sfx", type: "audio", src: "data/sfx/", channel : 2}

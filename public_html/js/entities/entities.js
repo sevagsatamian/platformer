@@ -5,7 +5,6 @@ game.PlayerEntity = me.ObjectEntity.extend({
             settings.spritewidth = "72";
             settings.spriteheight = "97";
             this.parent(x, y, settings);
-            me.audio.play("PolarIce");
             this.collidable = true;
             this.renderable.addAnimation("idle", [3]);
             this.renderable.addAnimation("jump", [2]);

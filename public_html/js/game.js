@@ -44,11 +44,12 @@ var game = {
                  me.entityPool.add("player", game.PlayerEntity);
                  me.input.bindKey(me.input.KEY.D, "d");
                    me.input.bindKey(me.input.KEY.A, "a");
-                    me.input.bindKey(me.input.KEY.W, "w");
+                    me.input.bindKey(me.input.KEY.SPACE, "space");
                      me.input.bindKey(me.input.KEY.S, "s");
                   me.entityPool.add("player2", game.PlayerEntity);
                   me.entityPool.add("fly", game.FlyEntity);
                    me.entityPool.add("levelTrigger", game.LevelTrigger);
+                    me.entityPool.add("levelTrigger2", game.LevelTrigger2);
                              me.entityPool.add("door1", game.DoorTrigger);
 		// Start the game.
 		me.state.change(me.state.PLAY);

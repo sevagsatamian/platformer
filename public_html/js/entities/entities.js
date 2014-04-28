@@ -4,6 +4,8 @@ game.PlayerEntity = me.ObjectEntity.extend({
             settings.image = "player1-spritesheet";
             settings.spritewidth = "72";
             settings.spriteheight = "97";
+            settings.width = 72;
+            settings.height = 97;
             this.parent(x, y, settings);
             this.collidable = true;
             this.renderable.addAnimation("idle", [3]);
@@ -16,13 +18,13 @@ game.PlayerEntity = me.ObjectEntity.extend({
             me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
            
   },
-     update: function (){
+     update: function (deltaTime){
         if(me.input.isKeyPressed("d")) {
             this.flipX(false);
             this.vel.x += this.accel.x * me.timer.tick;          
         } 
         else if (me.input.isKeyPressed("a")) {
-            this.flipX(true);
+            this.renderable.flipX(true);
             this.vel.x -= this.accel.x * me.timer.tick;
         }
         else {
@@ -30,25 +32,54 @@ game.PlayerEntity = me.ObjectEntity.extend({
             this.renderable.setCurrentAnimation("run");
         }
         
-          if(me.input.isKeyPressed("d")) {
-            this.flipX(false);
+        if(me.input.isKeyPressed("d")) {
+            this.renderable.flipX(false);
             this.vel.x += this.accel.x * me.timer.tick;          
         } 
         
-        if (me.input.isKeyPressed('space')) {
-            this.doJump();
-              this.renderable.setCurrentAnimation("jump");
-              
+        if (me.input.isKeyPressed("space")) 
+                 {
+        if (!this.jumping && !this.falling) {
+        // set the current jump force to the maximum defined value
+            this.jumpForce = this.maxVel.y;
+
+        // set the jumping flag
+            this.jumping = true;
         }
-            
+        else {
+            this.jumpForce = 0;
+
+    // reset the jumping flag
+            this.jumping = false;
+        }
+
+// update current vel with the jump force value
+// gravity will then do the rest
+            this.vel.y -= this.jumpForce * me.timer.tick;
+                  
         if(me.input.isKeyPressed("s")) {
             this.renderable.setCurrentAnimation("duck");
-        } 
+        }
         
-        var collision = this.collide();
+                  // check for collision with environment
+            this.updateMovement();
+
+		// check if we fell into a hole
+	if (!this.inViewport && (this.pos.y > me.video.getHeight())) {
+			// if yes reset the game
+	    me.game.world.removeChild(this);
+            me.game.viewport.fadeIn('#fff', 150, function(){
+		//me.audio.play("die", false);
+            me.levelDirector.reloadLevel();
+            me.game.viewport.fadeOut('#fff', 150);
+			});
+			return true;
+	}
+          }
+        
+        var collision = me.game.world.collide(this);
         this.updateMovement();
-        this.parent();
-           
+        this.parent(deltaTime);
         return true;
          }
 });
@@ -62,74 +93,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
                
        onCollision: function() {
            this.collidable = false;
-           me.levelDirector.loadLevel.defer(this.level);
-           me.state.current().resetPlayer.defer();
+           me.levelDirector.loadLevel(this.level);
+           me.state.current().resetPlayer();
        }        
-       });    
-         game.LevelTrigger2 = me.ObjectEntity.extend({
-       init: function(x, y, settings) {
-           this.parent(x, y, settings);
-           this.collidable = true;
-           this.level = settings.level;
-       },
-               
-       onCollision: function() {
-           this.collidable = false;
-           me.levelDirector.loadLevel.defer(this.level);
-           me.state.current().resetPlayer.defer();
-       }        
-       });    
-
-   game.FlyEntity = me.ObjectEntity.extend({
-     init: function(x, y, settings){
-         settings.image = "fly-spritesheet";
-         settings.spritewidth = "76";
-         settings.spriteheight = "36";
-         this.collidable = true;
-         this.parent(x, y, settings);
-         this.setVelocity(10,0);
-         this.updateColRect(40, 46, -1);
-         this.parent(100, 100, settings);
-         this.health = 10;
-         this.maxHealth = 10;
-     
-},
-       
-    step: function(dt) {                
-        //TODO: update range movement within the game loop
-        if(this.p.y - this.p.initialY >= this.p.rangeY && this.p.vy > 0) {
-        this.p.vy = -this.p.vy;
-    } 
-    else if(-this.p.y + this.p.initialY >= this.p.rangeY && this.p.vy < 0) {
-        this.p.vy = -this.p.vy;
-    }
-    },
-     draw: function(context, rect) {
-        this.parent(context, rect);
-        this.drawHealth(context);
-  },
-    drawHealth: function(context) {
-        var percent = this.health / this.maxHealth;
-        var width = this.getCollisionBox().width;
-        context.fillStyle = 'green';
-        context.fillRect(this.getCollisionBox().x, this.pos.y - 12, width, 10);
-  },
-    getCollisionBox: function() {
-        return {
-        x: this.pos.x + this.collisionBox.colPos.x,
-        y: this.pos.y + this.collisionBox.colPos.y,
-        width: this.collisionBox.width,
-        height: this.collisionBox.height
-  };
-  },
-                    
-    onCollision: function() {
-        this.collidable = false;
-        me.game.remove(this);  
-          
-  },        
-       
-    update: function() {
-       
-  }
-   });
+       });  

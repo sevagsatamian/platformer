@@ -20,7 +20,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
   },
      update: function (deltaTime){
         if(me.input.isKeyPressed("d")) {
-            this.flipX(false);
+            this.renderable.flipX(false);
             this.vel.x += this.accel.x * me.timer.tick;          
         } 
         else if (me.input.isKeyPressed("a")) {
@@ -32,10 +32,10 @@ game.PlayerEntity = me.ObjectEntity.extend({
             this.renderable.setCurrentAnimation("run");
         }
         
-        if(me.input.isKeyPressed("d")) {
+       /* if(me.input.isKeyPressed("d")) {
             this.renderable.flipX(false);
             this.vel.x += this.accel.x * me.timer.tick;          
-        } 
+        } */
         
         if (me.input.isKeyPressed("space")) 
                  {
@@ -52,18 +52,11 @@ game.PlayerEntity = me.ObjectEntity.extend({
     // reset the jumping flag
             this.jumping = false;
         }
-
-// update current vel with the jump force value
-// gravity will then do the rest
             this.vel.y -= this.jumpForce * me.timer.tick;
-                  
-        if(me.input.isKeyPressed("s")) {
-            this.renderable.setCurrentAnimation("duck");
-        }
-        
                   // check for collision with environment
             this.updateMovement();
-
+// update current vel with the jump force value
+// gravity will then do the rest
 		// check if we fell into a hole
 	if (!this.inViewport && (this.pos.y > me.video.getHeight())) {
 			// if yes reset the game

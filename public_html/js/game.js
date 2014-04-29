@@ -42,11 +42,12 @@ var game = {
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
                  me.pool.register("player", game.PlayerEntity, true);
+                 
                  me.input.bindKey(me.input.KEY.D, "d");
                    me.input.bindKey(me.input.KEY.A, "a");
-                    me.input.bindKey(me.input.KEY.SPACE, "space", true);
+                    me.input.bindKey(me.input.KEY.SPACE, "space");
+                    me.input.bindKey(me.input.KEY.S, "s");
                     
-            me.input.bindKey(me.input.KEY.S, "s");
                   me.pool.register("player2", game.PlayerEntity, true);
                   me.pool.register("fly", game.FlyEntity, true);
                    me.pool.register("levelTrigger", game.LevelTrigger, true);

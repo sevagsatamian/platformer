@@ -49,4 +49,7 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="FlyEnemyEntity" width="16" height="9">
+  <object name="FlyEnemyEntity" x="490" y="210" width="70" height="70"/>
+ </objectgroup>
 </map>

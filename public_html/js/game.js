@@ -5,10 +5,11 @@ var game = {
 	// an object where to store game information
 	data : {
 		// score
-		score : 0
+		score : 0,
+                lives: 3
 	},
 	
-	
+
 	// Run on page load.
 	"onload" : function () {
 	// Initialize the video.
@@ -39,6 +40,10 @@ var game = {
 
 	// Run on game resources loaded.
 	"loaded" : function () {
+            
+            // set the fade transition effect
+		me.state.transition("fade","#FFFFFF", 400);
+                
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
                  me.pool.register("player", game.PlayerEntity, true);
@@ -50,12 +55,44 @@ var game = {
                     
                   me.pool.register("player2", game.PlayerEntity, true);
                   me.pool.register("fly", game.FlyEntity, true);
+                  
+                  me.pool.register("SlimeEntity", game.SlimeEnemyEntity, true);
+                  me.pool.register("FlyEntity", game.FlyEnemyEntity, true);
+                  
                    me.pool.register("levelTrigger", game.LevelTrigger, true);
                     me.pool.register("levelTrigger2", game.LevelTrigger2, true);
                             
             me.pool.register("door1", game.DoorTrigger, true);
 		// Start the game.
 		me.state.change(me.state.PLAY);
-	}
+                
+     
+        }
 };
+   // add some keyboard shortcuts
+		me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge) {
+
+			// change global volume setting
+			if (keyCode === me.input.KEY.PLUS) {
+				// increase volume
+				me.audio.setVolume(me.audio.getVolume()+0.1);
+			} else if (keyCode === me.input.KEY.MINUS) {
+				// decrease volume
+				me.audio.setVolume(me.audio.getVolume()-0.1);
+			}
+
+			// toggle fullscreen on/off
+			if (keyCode === me.input.KEY.F) {
+				if (!me.device.isFullscreen) {
+					me.device.requestFullscreen();
+				} else {
+					me.device.exitFullscreen();
+				}
+			}
+		});
+
+		// switch to PLAY state
+		me.state.change(me.state.PLAY);
+	
+
          

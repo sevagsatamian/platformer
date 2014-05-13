@@ -36,7 +36,9 @@
  <objectgroup name="trigger-entities" width="56" height="60">
   <object name="levelTrigger" x="70" y="3990" width="70" height="140">
    <properties>
-    <property name="level" value="level5"/>
+    <property name="level" value="7"/>
+    <property name="xSpawn" value="0"/>
+    <property name="ySpawn" value="350"/>
    </properties>
   </object>
   <object x="1050" y="3780"/>

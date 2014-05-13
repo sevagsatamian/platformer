@@ -20,6 +20,7 @@ game.resources = [
                                    {name: "tigger", type:"image", src: "data/img/tigger.png"},
                                {name: "black", type:"image", src: "data/img/black.png"},
                              {name: "1", type:"image", src: "data/img/1.png"},
+                              {name: "spritesheet", type:"image", src: "data/img/spritesheet.png"},
 	/* Atlases 
 	 * @example
 	 * {name: "example_tps", type: "tps", src: "data/img/example_tps.json"},
@@ -40,7 +41,7 @@ game.resources = [
                               {name: "level7", type: "tmx", src: "data/map/level7.tmx"},
                                {name: "level8", type: "tmx", src: "data/map/level8.tmx"},
                                 {name: "level9", type: "tmx", src: "data/map/level9.tmx"},
-                                        {name: "level10", type: "tmx", src: "data/map/level10.tmx"},
+                                        {name: "level10", type: "tmx", src: "data/map/level10.tmx"}
                                                     
 	/* Background music. 
 	 * @example

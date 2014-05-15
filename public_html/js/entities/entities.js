@@ -130,8 +130,6 @@ game.PlayerEntity = me.ObjectEntity.extend({
 
 <<<<<<< HEAD
 });*/
-=======
-});
 game.EnemyEntity = game.CharacterEntity.extend({
 	init:function(x, y, settings) {
 		settings.image = 'bad1';
@@ -203,4 +201,4 @@ game.EnemyEntity = game.CharacterEntity.extend({
 		} 
 	}
 });
->>>>>>> d6a469e9e64abbdbfcb6a4232aee93e7ea66af6b
+

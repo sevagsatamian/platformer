@@ -16,7 +16,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
             
             me.input.bindKey(me.input.KEY.SPACE, "jump", true);
          
-            this.setVelocity(10,15);
+            this.setVelocity(10,20);
             me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
            
   },
@@ -33,7 +33,11 @@ game.PlayerEntity = me.ObjectEntity.extend({
             this.vel.x= 0;
             this.renderable.setCurrentAnimation("run");
         }
-                  
+        if(me.input.isKeyPressed("s")) {
+            this.renderable.setCurrentAnimation("duck");
+        } 
+
+
           if (me.input.isKeyPressed('jump')) {
 			this.jumping = true;
 
@@ -93,11 +97,11 @@ game.PlayerEntity = me.ObjectEntity.extend({
 /**
  * a coin (collectable) entiry
  */
-game.CoinEntity = me.CollectableEntity.extend({	
+//game.CoinEntity = me.CollectableEntity.extend({	
 	/** 
 	 * constructor
 	 */
-	init: function (x, y, settings) {
+	/*init: function (x, y, settings) {
 
 		// call the super constructor
 		this._super(me.CollectableEntity, 'init', [x, y , settings]);
@@ -113,7 +117,7 @@ game.CoinEntity = me.CollectableEntity.extend({
 	/** 
 	 * collision handling
 	 */
-	onCollision : function () {
+	/*onCollision : function () {
 		// do something when collide
 		me.audio.play("cling", false);
 		// give some score
@@ -124,4 +128,4 @@ game.CoinEntity = me.CollectableEntity.extend({
 		me.game.world.removeChild(this);
 	}
 
-});
+});*/

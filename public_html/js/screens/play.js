@@ -6,7 +6,7 @@ game.PlayScreen = me.ScreenObject.extend({
 		// reset the score
 		game.data.score = 0;
 
-                 me.levelDirector.loadLevel("level10");
+                 me.levelDirector.loadLevel("level1");
                  this.resetPlayer(0, 420);
                 
 

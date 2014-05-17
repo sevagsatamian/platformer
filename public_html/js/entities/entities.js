@@ -130,7 +130,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
 
 <<<<<<< HEAD
 });*/
-game.EnemyEntity = game.CharacterEntity.extend({
+/*game.EnemyEntity = game.CharacterEntity.extend({
 	init:function(x, y, settings) {
 		settings.image = 'bad1';
 		settings.spritewidth = 32;
@@ -201,4 +201,47 @@ game.EnemyEntity = game.CharacterEntity.extend({
 		} 
 	}
 });
+*/
+game.SlimeEntity = me.ObjectEntity.extend ({
+    init: function (x, y, settings) {
+        settings.image = "slime-spritesheet";
+        settings.spritewidth = "60";
+        settings.spriteheight = "28";
+        settings.width = 60;
+        settings.height = 28;
+        this.parent (x, y, settings);
+        
+        this.setVelocity(4,1 );
 
+        
+        this.renderable.addAnimation  ("moving", [1, 2], 300);
+        this.renderable.setCurrentAnimation("moving");
+        this.direction = "left";
+        
+        this.vel.x -= this.accel.x * me.timer.tick;
+        this.previousVelocity = this.vel.clone();
+    },
+     
+     update: function(deltaTime) {
+        var collision = this.updateMovement ();
+ 
+        if(collision && this.vel.x === 0) {
+           this.vel.x = -this.previousVelocity.x;    
+        
+           if(this.direction === "left") {
+               this.direction = "right";
+               this.renderable.flipX(true);
+           }
+           else {
+               this.direction = "left";
+               this.renderable.flipX(false);
+           }
+        }
+           else {
+               this.previousVelocity = this.vel.clone ();
+           }
+           
+           this.parent(deltaTime);
+           return true;
+     }
+});

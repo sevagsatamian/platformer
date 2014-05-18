@@ -58,6 +58,8 @@ var game = {
 
                 me.pool.register("SlimeEntity", game.SlimeEntity, true);
                 me.pool.register("FlyEntity", game.FlyEnemyEntity, true);
+                me.pool.register("CoinEntity", game.CoinEntity, true);
+
 
                 me.pool.register("levelTrigger", game.LevelTrigger, true);
                 me.pool.register("levelTrigger2", game.LevelTrigger2, true);

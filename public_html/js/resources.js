@@ -22,6 +22,7 @@ game.resources = [
                              {name: "1", type:"image", src: "data/img/1.png"},
                               {name: "spritesheet", type:"image", src: "data/img/spritesheet.png"},
                                {name: "sand", type:"image", src: "data/img/sand.jpg"},
+                                  {name: "coin.png", type:"image", src: "data/img/coin.png"},
                                
 	/* Atlases 
 	 * @example

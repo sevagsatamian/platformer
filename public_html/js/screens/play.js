@@ -5,7 +5,7 @@ game.PlayScreen = me.ScreenObject.extend({
 	onResetEvent: function() {
 		// reset the score
 		game.data.score = 0;
-
+                game.data.lives = 3;
                  me.levelDirector.loadLevel("level1");
                  this.resetPlayer(0, 420);
                 

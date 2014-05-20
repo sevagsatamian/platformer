@@ -40,13 +40,12 @@ var game = {
 
 	// Run on game resources loaded.
 	"loaded" : function () {
-            
-            // set the fade transition effect
-                me.state.transition("fade","#FFFFFF", 400);
-
                 me.state.set(me.state.MENU, new game.TitleScreen());
                 me.state.set(me.state.PLAY, new game.PlayScreen());
                 me.pool.register("player", game.PlayerEntity, true);
+               // me.state.set(me.state.READY, new LevelCompleteScreen());
+            // set the fade transition effect
+                me.state.transition("fade","#FFFFFF", 400);
 
                 me.input.bindKey(me.input.KEY.D, "d");
                 me.input.bindKey(me.input.KEY.A, "a");
@@ -59,7 +58,7 @@ var game = {
                 me.pool.register("SlimeEntity", game.SlimeEntity, true);
                 me.pool.register("FlyEntity", game.FlyEnemyEntity, true);
                 me.pool.register("CoinEntity", game.CoinEntity, true);
-
+               // me.entityPool.add("tmxlevelcomplete", TMXLevelEntity);
 
                 me.pool.register("levelTrigger", game.LevelTrigger, true);
                 me.pool.register("levelTrigger2", game.LevelTrigger2, true);
@@ -81,5 +80,6 @@ var game = {
 				}
                         }	
                 });
+
         }
  };     

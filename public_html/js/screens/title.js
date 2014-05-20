@@ -35,7 +35,7 @@ game.TitleScreen = me.ScreenObject.extend({
 		}
 
 		this.staticfont = new me.Font('Helvetica Neue', 14, 'black');
-		if(game.persistent.other.deathcounter != 0) {
+		if(game.persistent.other.deathcounter !== 0) {
 			this.font = new me.Font('Helvetica Neue', 14, 'black');
 		}
 
@@ -144,7 +144,7 @@ game.CustomLoadScreen = me.ScreenObject.extend({
 
 		draw : function(context) {
 
-			var logo1_width = this.logo1.measureText(context, "justin").width;
+			var logo1_width = this.logo1.measureText(context, "Sevag").width;
 			var xpos = (me.video.getWidth() - logo1_width - this.logo2.measureText(context, "Productions").width) / 2;
 			var ypos = me.video.getHeight() / 2;
 
@@ -152,7 +152,7 @@ game.CustomLoadScreen = me.ScreenObject.extend({
 			me.video.clearSurface(context, "black");
 
 			// draw the logo
-			this.logo1.draw(context, 'justin', xpos , ypos);
+			this.logo1.draw(context, 'Sevag', xpos , ypos);
 			xpos += logo1_width;
 			this.logo2.draw(context, 'Productions', xpos, ypos);
 

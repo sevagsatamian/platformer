@@ -29,8 +29,6 @@ game.HUD.Container = me.ObjectContainer.extend({
 		this.addChild(new game.HUD.ScoreItem(5, 5));
 	}
 });
-
-
 /** 
  * a basic HUD item to display score
  */
@@ -44,6 +42,9 @@ game.HUD.ScoreItem = me.Renderable.extend({
 		// (size does not matter here)
 		this.parent(new me.Vector2d(x, y), 10, 10); 
 		
+                
+        
+
 		// local copy of the global score
 		this.score = -1;
 
@@ -68,7 +69,35 @@ game.HUD.ScoreItem = me.Renderable.extend({
 	 * draw the score
 	 */
 	draw : function (context) {
-		// draw it baby !
+                
 	}
 
 });
+game.HUD.LivesItem = me.Renderable.extend({
+    init: function (x, y) {
+        this.parent(new me.Vector2d(x, y), 10, 10);
+
+        this.font = new me.BitmapFont("font", { x: 32, y: 32 });
+        this.font.alignText = "bottom";
+        this.font.set("left", 1);
+
+        this.lives = 0;
+
+        this.floating = true;
+    },
+
+    update: function () {
+
+        if (this.lives !== game.data.lives) {
+            this.score = game.data.lives;
+            return true;
+        }
+        return false;
+    },
+
+    draw: function (context) {
+        this.font.draw(context, "x" + game.data.lives, this.pos.x, this.pos.y);
+
+    }
+});
+

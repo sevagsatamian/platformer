@@ -20,6 +20,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
             me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
            
   },
+  
      update: function (deltaTime){
         if(me.input.isKeyPressed("d")) {
             this.renderable.flipX(false);
@@ -50,7 +51,6 @@ game.PlayerEntity = me.ObjectEntity.extend({
 
 			}
 		}
-
         // check & update player movement
         this.updateMovement();
 
@@ -64,6 +64,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
 			});
 			return true;
 		} 
+                
                   
         
         var collision = me.game.world.collide(this);
@@ -140,6 +141,9 @@ game.SlimeEntity = me.ObjectEntity.extend ({
         this.parent (x, y, settings);
         
         this.setVelocity(4,1 );
+        // make it collidable
+		this.collidable = true;
+		this.type = me.game.ENEMY_OBJECT;
 
         
         this.renderable.addAnimation  ("moving", [1, 2], 300);
@@ -149,7 +153,19 @@ game.SlimeEntity = me.ObjectEntity.extend ({
         this.vel.x -= this.accel.x * me.timer.tick;
         this.previousVelocity = this.vel.clone();
     },
-     
+//    
+//     onCollision : function (res, obj){
+//
+//		if (this.alive && (res.y > 0) && obj.falling){
+//			// make it flicker
+//			this.flicker(20, function(){
+//				this.alive = false;
+//				me.game.remove(this);
+//			});
+//
+//		}
+//	},
+//        
      update: function(deltaTime) {
         var collision = this.updateMovement ();
  

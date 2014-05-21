@@ -98,39 +98,40 @@ game.PlayerEntity = me.ObjectEntity.extend({
 /**
  * a coin (collectable) entiry
  */
-//game.CoinEntity = me.CollectableEntity.extend({	
+game.CoinEntity = me.CollectableEntity.extend({	
 	/** 
 	 * constructor
 	 */
-	/*init: function (x, y, settings) {
+	init: function (x, y, settings) {
 
 		// call the super constructor
-		this._super(me.CollectableEntity, 'init', [x, y , settings]);
+		//this._super(me.CollectableEntity, 'init', [x, y , settings]);
 
-		// add the coin sprite as renderable
-		this.renderable = game.texture.createSpriteFromName("coin.png");
-
-		// set the renderable position to center
-		this.anchorPoint.set(0.5, 0.5);
-
-	},		
+	 settings.image = "item-spritesheet";
+        settings.spritewidth = "70";
+        settings.spriteheight = "70";
+            this.parent(x, y, settings);
+            this.renderable.addAnimation("coin", [13,14,15]);
+            this.renderable.setCurrentAnimation("coin");
+     },	
 
 	/** 
 	 * collision handling
 	 */
-	/*onCollision : function () {
+	onCollision : function () {
 		// do something when collide
-		me.audio.play("cling", false);
+		//me.audio.play("cling", false);
 		// give some score
-		game.data.score += 250;
+		game.data.score += 1;
 
 		//avoid further collision and delete it
 		this.collidable = false;
 		me.game.world.removeChild(this);
 	}
 
-<<<<<<< HEAD
-});*/
+
+});
+
 game.SlimeEntity = me.ObjectEntity.extend ({
     init: function (x, y, settings) {
         settings.image = "slime-spritesheet";
@@ -153,19 +154,20 @@ game.SlimeEntity = me.ObjectEntity.extend ({
         this.vel.x -= this.accel.x * me.timer.tick;
         this.previousVelocity = this.vel.clone();
     },
-//    
-//     onCollision : function (res, obj){
-//
-//		if (this.alive && (res.y > 0) && obj.falling){
-//			// make it flicker
+    
+     onCollision : function (res, obj){
+
+		if (this.alive && (res.y > 0) && obj.falling){
+			// make it flicker
 //			this.flicker(20, function(){
 //				this.alive = false;
 //				me.game.remove(this);
 //			});
-//
-//		}
-//	},
-//        
+
+		}
+                
+	},
+        
      update: function(deltaTime) {
         var collision = this.updateMovement ();
  
@@ -189,3 +191,5 @@ game.SlimeEntity = me.ObjectEntity.extend ({
            return true;
      }
 });
+
+     

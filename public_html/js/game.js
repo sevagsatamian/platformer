@@ -6,7 +6,8 @@ var game = {
 	data : {
 		// score
 		score : 0,
-                lives: 3
+                lives: 3,
+                coins: 0
 	},
 	
 
@@ -42,8 +43,8 @@ var game = {
 	"loaded" : function () {
                 me.state.set(me.state.MENU, new game.TitleScreen());
                 me.state.set(me.state.PLAY, new game.PlayScreen());
+                
                 me.pool.register("player", game.PlayerEntity, true);
-               // me.state.set(me.state.READY, new LevelCompleteScreen());
             // set the fade transition effect
                 me.state.transition("fade","#FFFFFF", 400);
 
@@ -51,10 +52,11 @@ var game = {
                 me.input.bindKey(me.input.KEY.A, "a");
                 me.input.bindKey(me.input.KEY.SPACE, "space");
                 me.input.bindKey(me.input.KEY.S, "s");
-
+                
                 me.pool.register("player2", game.PlayerEntity, true);
                 me.pool.register("fly", game.FlyEntity, true);
-
+                me.pool.register("CoinEntity", game.CoinEntity, true);
+                 me.pool.register("BombEntity", game.BombEntity, true);
                 me.pool.register("SlimeEntity", game.SlimeEntity, true);
                 me.pool.register("FlyEntity", game.FlyEnemyEntity, true);
                 me.pool.register("CoinEntity", game.CoinEntity, true);
@@ -65,7 +67,7 @@ var game = {
 
                 me.pool.register("door1", game.DoorTrigger, true);
                 // Start the game.
-                me.state.change(me.state.PLAY);
+                me.state.change(me.state.MENU);
                 
       // add some keyboard shortcuts
 		me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge) {
@@ -83,3 +85,4 @@ var game = {
 
         }
  };     
+ 

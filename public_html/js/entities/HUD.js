@@ -27,6 +27,7 @@ game.HUD.Container = me.ObjectContainer.extend({
 		
 		// add our child score object at the top left corner
 		this.addChild(new game.HUD.ScoreItem(5, 5));
+                this.addChild(new game.HUD.LivesItem(5, 5));
 	}
 });
 /** 
@@ -85,11 +86,11 @@ game.HUD.LivesItem = me.Renderable.extend({
 		
 		// call the parent constructor 
 		// (size does not matter here)
-		this.parent(new me.Vector2d(x, y), 20, 20); 
+		this.parent(new me.Vector2d(x, y), 10, 10); 
                 
 		this.font = new me.Font("Courier New", 25, "black");
-		// local copy of the global score
-		this.lives = -1;
+		// local copy of the global lives
+		this.lives = 0;
 
 		// make sure we use screen coordinates
 		this.floating = true;
@@ -100,7 +101,7 @@ game.HUD.LivesItem = me.Renderable.extend({
 	 */
 	update : function () {
 		// we don't do anything fancy here, so just
-		// return true if the score has been updated
+		// return true if the lives has been updated
 		if (this.lives !== game.data.lives) {	
 			this.lives = game.data.lives;
 			return true;
@@ -109,11 +110,11 @@ game.HUD.LivesItem = me.Renderable.extend({
 	},
 
 	/**
-	 * draw the score
+	 * draw the lives
 	 */
 	draw : function (context) {
 // draw it baby !
-    this.font.draw(context, "Your Lives:" + this.lives, 400, 0);
+    this.font.draw(context, "Lives:" + this.lives, 400, 40);
 }
 });
 

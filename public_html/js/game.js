@@ -41,7 +41,7 @@ var game = {
 
 	// Run on game resources loaded.
 	"loaded" : function () {
-                me.state.set(me.state.MENU, new game.TitleScreen());
+               // me.state.set(me.state.MENU, new game.TitleScreen());
                 me.state.set(me.state.PLAY, new game.PlayScreen());
                 
                 me.pool.register("player", game.PlayerEntity, true);
@@ -60,6 +60,7 @@ var game = {
                 me.pool.register("SlimeEntity", game.SlimeEntity, true);
                 me.pool.register("FlyEntity", game.FlyEnemyEntity, true);
                 me.pool.register("CoinEntity", game.CoinEntity, true);
+                 me.pool.register("BoxEntity", game.BoxEntity, true);
                // me.entityPool.add("tmxlevelcomplete", TMXLevelEntity);
 
                 me.pool.register("levelTrigger", game.LevelTrigger, true);
@@ -67,8 +68,8 @@ var game = {
 
                 me.pool.register("door1", game.DoorTrigger, true);
                 // Start the game.
-                me.state.change(me.state.MENU);
-                
+                //me.state.change(me.state.MENU);
+                me.state.change(me.state.PLAY);
       // add some keyboard shortcuts
 		me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge) {
 

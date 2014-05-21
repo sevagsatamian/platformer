@@ -51,6 +51,11 @@ game.PlayerEntity = me.ObjectEntity.extend({
 
 			}
 		}
+                   if(game.data.lives===0) {
+//            me.levelDirector.loadLevel("level1");
+              me.levelDirector.reloadLevel();
+        }
+       
         // check & update player movement
         this.updateMovement();
 
@@ -71,7 +76,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
         this.updateMovement();
         this.parent(deltaTime);
         return true;
-         }
+         },
          
 });
  
@@ -132,6 +137,34 @@ game.CoinEntity = me.CollectableEntity.extend({
 
 });
 
+game.BoxEntity = me.CollectableEntity.extend({	
+	/** 
+	 * constructor
+	 */
+	init: function (x, y, settings) {
+
+		// call the super constructor
+		//this._super(me.CollectableEntity, 'init', [x, y , settings]);
+
+	 settings.image = "background-tiles";
+        settings.spritewidth = "70";
+        settings.spriteheight = "70";
+            this.parent(x, y, settings);
+            this.renderable.addAnimation("box", [6,6,7,7,8,8,9,9]);
+            this.renderable.setCurrentAnimation("box");
+     },	
+
+	/** 
+	 * collision handling
+	 */
+	onCollision : function () {		
+		this.collidable = true;
+
+	}
+
+
+});
+
 game.SlimeEntity = me.ObjectEntity.extend ({
     init: function (x, y, settings) {
         settings.image = "slime-spritesheet";
@@ -163,7 +196,7 @@ game.SlimeEntity = me.ObjectEntity.extend ({
 //				this.alive = false;
 //				me.game.remove(this);
 //			});
-
+                    game.data.lives -= 1;
 		}
                 
 	},
@@ -192,4 +225,62 @@ game.SlimeEntity = me.ObjectEntity.extend ({
      }
 });
 
-     
+//     game.FlyEntity = me.ObjectEntity.extend ({
+//    init: function (x, y, settings) {
+//        settings.image = "fly-spritesheet";
+//        settings.spritewidth = "60";
+//        settings.spriteheight = "28";
+//        settings.width = 60;
+//        settings.height = 28;
+//        this.parent (x, y, settings);
+//        
+//        this.setVelocity(4,1 );
+//        // make it collidable
+//		this.collidable = true;
+//		this.type = me.game.ENEMY_OBJECT;
+//
+//        
+//        this.renderable.addAnimation  ("moving", [1, 2], 300);
+//        this.renderable.setCurrentAnimation("moving");
+//        this.direction = "left";
+//        
+//        this.vel.x -= this.accel.x * me.timer.tick;
+//        this.previousVelocity = this.vel.clone();
+//    },
+//    
+//     onCollision : function (res, obj){
+//
+//		if (this.alive && (res.y > 0) && obj.falling){
+//			// make it flicker
+////			this.flicker(20, function(){
+////				this.alive = false;
+////				me.game.remove(this);
+////			});
+//                    game.data.lives -= 1;
+//		}
+//                
+//	},
+//        
+//     update: function(deltaTime) {
+//        var collision = this.updateMovement ();
+// 
+//        if(collision && this.vel.x === 0) {
+//           this.vel.x = -this.previousVelocity.x;    
+//        
+//           if(this.direction === "left") {
+//               this.direction = "right";
+//               this.renderable.flipX(true);
+//           }
+//           else {
+//               this.direction = "left";
+//               this.renderable.flipX(false);
+//           }
+//        }
+//           else {
+//               this.previousVelocity = this.vel.clone ();
+//           }
+//           
+//           this.parent(deltaTime);
+//           return true;
+//     }
+//});

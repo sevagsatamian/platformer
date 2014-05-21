@@ -51,4 +51,14 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="entity-coin" width="16" height="9">
+  <object name="CoinEntity" x="280" y="210" width="70" height="70"/>
+  <object name="CoinEntity" x="350" y="210" width="70" height="70"/>
+  <object name="CoinEntity" x="210" y="210" width="70" height="70"/>
+  <object name="CoinEntity" x="140" y="210" width="70" height="70"/>
+  <object name="CoinEntity" x="70" y="210" width="70" height="70"/>
+ </objectgroup>
+ <objectgroup name="entity-slime" width="16" height="9">
+  <object name="SlimeEntity" x="490" y="210" width="70" height="70"/>
+ </objectgroup>
 </map>

@@ -28,6 +28,8 @@ game.HUD.Container = me.ObjectContainer.extend({
 		// add our child score object at the top left corner
 		this.addChild(new game.HUD.ScoreItem(5, 5));
                 this.addChild(new game.HUD.LivesItem(5, 5));
+                this.addChild(new game.HUD.CoinsItem(5, 5));
+                this.addChild(new game.HUD.StarItem(5, 5));
 	}
 });
 /** 
@@ -73,6 +75,56 @@ game.HUD.ScoreItem = me.Renderable.extend({
 	draw : function (context) {
 // draw it baby !
     this.font.draw(context, "Your Score:" + this.score, 400, 0);
+}
+});
+
+game.HUD.CoinsItem = me.Renderable.extend({	
+	/** 
+	 * constructor
+	 */
+	init: function(x, y) {
+		
+		// call the parent constructor 
+		// (size does not matter here)
+		this.parent(new me.Vector2d(x, y), 10, 10); 
+                
+		this.font = new me.Font("Courier New", 25, "blue");
+		// local copy of the global score
+
+		// make sure we use screen coordinates
+		this.floating = true;
+	},
+	/**
+	 * draw the score
+	 */
+	draw : function (context) {
+// draw it baby !
+    this.font.draw(context, "Coins + 1pt", 10, 0);
+}
+});
+
+game.HUD.StarItem = me.Renderable.extend({	
+	/** 
+	 * constructor
+	 */
+	init: function(x, y) {
+		
+		// call the parent constructor 
+		// (size does not matter here)
+		this.parent(new me.Vector2d(x, y), 10, 10); 
+                
+		this.font = new me.Font("Courier New", 25, "yellow");
+		// local copy of the global score
+
+		// make sure we use screen coordinates
+		this.floating = true;
+	},
+	/**
+	 * draw the score
+	 */
+	draw : function (context) {
+// draw it baby !
+    this.font.draw(context, "Stars + 5pts", 10, 30);
 }
 });
 

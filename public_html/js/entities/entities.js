@@ -136,6 +136,34 @@ game.CoinEntity = me.CollectableEntity.extend({
 
 
 });
+game.StarEntity = me.CollectableEntity.extend({	
+	/** 
+	 * constructor
+	 */
+	init: function (x, y, settings) {
+	    settings.image = "item-spritesheet";
+            settings.spritewidth = "70";
+            settings.spriteheight = "70";
+            this.parent(x, y, settings);
+            this.renderable.addAnimation("star", [46]);
+            this.renderable.setCurrentAnimation("star");
+     },	
+
+	/** 
+	 * collision handling
+	 */
+	onCollision : function () {
+		// do something when collide
+		// give some score
+		game.data.score += 5;
+
+		//avoid further collision and delete it
+		this.collidable = false;
+		me.game.world.removeChild(this);
+	}
+
+
+});
 
 game.BoxEntity = me.CollectableEntity.extend({	
 	/** 
@@ -158,8 +186,9 @@ game.BoxEntity = me.CollectableEntity.extend({
 	 * collision handling
 	 */
 	onCollision : function () {		
+                game.data.score += 50;
 		this.collidable = true;
-
+                me.game.world.removeChild(this);
 	}
 
 
@@ -175,6 +204,67 @@ game.SlimeEntity = me.ObjectEntity.extend ({
         this.parent (x, y, settings);
         
         this.setVelocity(4,1 );
+        // make it collidable
+		this.collidable = true;
+		this.type = me.game.ENEMY_OBJECT;
+
+        
+        this.renderable.addAnimation  ("moving", [1, 2], 300);
+        this.renderable.setCurrentAnimation("moving");
+        this.direction = "left";
+        
+        this.vel.x -= this.accel.x * me.timer.tick;
+        this.previousVelocity = this.vel.clone();
+    },
+    
+     onCollision : function (res, obj){
+
+		if (this.alive && (res.y > 0) && obj.falling){
+			// make it flicker
+			this.flicker =20;
+//			, function(){
+//				this.alive = false;
+//				me.game.remove(this);
+//			});
+                    game.data.lives -= 1;
+		}
+                
+	},
+        
+     update: function(deltaTime) {
+        var collision = this.updateMovement ();
+ 
+        if(collision && this.vel.x === 0) {
+           this.vel.x = -this.previousVelocity.x;    
+        
+           if(this.direction === "left") {
+               this.direction = "right";
+               this.renderable.flipX(true);
+           }
+           else {
+               this.direction = "left";
+               this.renderable.flipX(false);
+           }
+        }
+           else {
+               this.previousVelocity = this.vel.clone ();
+           }
+           
+           this.parent(deltaTime);
+           return true;
+     }
+});
+
+     game.FlyEntity = me.ObjectEntity.extend ({
+    init: function (x, y, settings) {
+        settings.image = "fly-spritesheet";
+        settings.spritewidth = "76";
+        settings.spriteheight = "36";
+        settings.width = 76;
+        settings.height = 36;
+        this.parent (x, y, settings);
+        
+        this.setVelocity(4,10 );
         // make it collidable
 		this.collidable = true;
 		this.type = me.game.ENEMY_OBJECT;
@@ -224,63 +314,3 @@ game.SlimeEntity = me.ObjectEntity.extend ({
            return true;
      }
 });
-
-//     game.FlyEntity = me.ObjectEntity.extend ({
-//    init: function (x, y, settings) {
-//        settings.image = "fly-spritesheet";
-//        settings.spritewidth = "60";
-//        settings.spriteheight = "28";
-//        settings.width = 60;
-//        settings.height = 28;
-//        this.parent (x, y, settings);
-//        
-//        this.setVelocity(4,1 );
-//        // make it collidable
-//		this.collidable = true;
-//		this.type = me.game.ENEMY_OBJECT;
-//
-//        
-//        this.renderable.addAnimation  ("moving", [1, 2], 300);
-//        this.renderable.setCurrentAnimation("moving");
-//        this.direction = "left";
-//        
-//        this.vel.x -= this.accel.x * me.timer.tick;
-//        this.previousVelocity = this.vel.clone();
-//    },
-//    
-//     onCollision : function (res, obj){
-//
-//		if (this.alive && (res.y > 0) && obj.falling){
-//			// make it flicker
-////			this.flicker(20, function(){
-////				this.alive = false;
-////				me.game.remove(this);
-////			});
-//                    game.data.lives -= 1;
-//		}
-//                
-//	},
-//        
-//     update: function(deltaTime) {
-//        var collision = this.updateMovement ();
-// 
-//        if(collision && this.vel.x === 0) {
-//           this.vel.x = -this.previousVelocity.x;    
-//        
-//           if(this.direction === "left") {
-//               this.direction = "right";
-//               this.renderable.flipX(true);
-//           }
-//           else {
-//               this.direction = "left";
-//               this.renderable.flipX(false);
-//           }
-//        }
-//           else {
-//               this.previousVelocity = this.vel.clone ();
-//           }
-//           
-//           this.parent(deltaTime);
-//           return true;
-//     }
-//});

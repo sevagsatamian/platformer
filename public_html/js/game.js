@@ -53,14 +53,15 @@ var game = {
                 me.input.bindKey(me.input.KEY.SPACE, "space");
                 me.input.bindKey(me.input.KEY.S, "s");
                 
-                me.pool.register("player2", game.PlayerEntity, true);
-                me.pool.register("fly", game.FlyEntity, true);
-                me.pool.register("CoinEntity", game.CoinEntity, true);
+                //ITEMS
+                 me.pool.register("CoinEntity", game.CoinEntity, true);
+                 me.pool.register("StarEntity", game.StarEntity, true);
                  me.pool.register("BombEntity", game.BombEntity, true);
-                me.pool.register("SlimeEntity", game.SlimeEntity, true);
-                me.pool.register("FlyEntity", game.FlyEnemyEntity, true);
-                me.pool.register("CoinEntity", game.CoinEntity, true);
                  me.pool.register("BoxEntity", game.BoxEntity, true);
+                
+                me.pool.register("player2", game.PlayerEntity, true);
+                me.pool.register("SlimeEntity", game.SlimeEntity, true);
+                me.pool.register("FlyEntity", game.FlyEntity, true);
                // me.entityPool.add("tmxlevelcomplete", TMXLevelEntity);
 
                 me.pool.register("levelTrigger", game.LevelTrigger, true);

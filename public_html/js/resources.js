@@ -23,6 +23,7 @@ game.resources = [
                               {name: "spritesheet", type:"image", src: "data/img/spritesheet.png"},
                                {name: "sand", type:"image", src: "data/img/sand.jpg"},
                                    {name: "title-screen", type:"image", src: "data/img/title-screen.png"},
+                                      {name: "heart", type:"image", src: "data/img/heart.jpg"},
                                
 	/* Atlases 
 	 * @example

@@ -41,12 +41,12 @@ var game = {
 
 	// Run on game resources loaded.
 	"loaded" : function () {
-               // me.state.set(me.state.MENU, new game.TitleScreen());
+                me.state.set(me.state.MENU, new game.TitleScreen());
                 me.state.set(me.state.PLAY, new game.PlayScreen());
                 
                 me.pool.register("player", game.PlayerEntity, true);
             // set the fade transition effect
-                me.state.transition("fade","#FFFFFF", 400);
+                //me.state.transition("fade","#FFFFFF", 400);
 
                 me.input.bindKey(me.input.KEY.D, "d");
                 me.input.bindKey(me.input.KEY.A, "a");
@@ -58,6 +58,7 @@ var game = {
                  me.pool.register("StarEntity", game.StarEntity, true);
                  me.pool.register("BombEntity", game.BombEntity, true);
                  me.pool.register("BoxEntity", game.BoxEntity, true);
+                 me.pool.register("LavaEntity", game.LavaEntity, true);
                 
                 me.pool.register("player2", game.PlayerEntity, true);
                 me.pool.register("SlimeEntity", game.SlimeEntity, true);
@@ -69,8 +70,8 @@ var game = {
 
                 me.pool.register("door1", game.DoorTrigger, true);
                 // Start the game.
-                //me.state.change(me.state.MENU);
-                me.state.change(me.state.PLAY);
+                me.state.change(me.state.MENU);
+                
       // add some keyboard shortcuts
 		me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge) {
 

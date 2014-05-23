@@ -20,6 +20,18 @@ game.PlayerEntity = me.ObjectEntity.extend({
             me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
            
   },
+          onResetEvent: function() {
+		// reset the score
+		game.data.score = 0;
+                game.data.lives = 3;
+                 me.levelDirector.loadLevel("level1");
+                 this.resetPlayer(0, 420);
+                
+
+		// add our HUD to the game world
+		this.HUD = new game.HUD.Container();
+		me.game.world.addChild(this.HUD);
+	},
   
      update: function (deltaTime){
         if(me.input.isKeyPressed("d")) {
@@ -66,6 +78,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
 			me.game.viewport.fadeIn('#fff', 150, function(){
 				me.levelDirector.reloadLevel();
 				me.game.viewport.fadeOut('#fff', 150);
+                                
 			});
 			return true;
 		} 
@@ -76,7 +89,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
         this.updateMovement();
         this.parent(deltaTime);
         return true;
-         },
+         }
          
 });
  
@@ -313,4 +326,29 @@ game.SlimeEntity = me.ObjectEntity.extend ({
            this.parent(deltaTime);
            return true;
      }
+});
+game.LavaEntity = me.ObjectEntity.extend ({
+    init: function (x, y, settings) {
+        
+        this.parent (x, y, settings);
+        
+		this.collidable = true;
+		this.type = me.game.ENEMY_OBJECT;
+    },
+    
+     onCollision : function (res, obj){
+
+		if (this.alive && (res.y > 0) && obj.falling){
+			// make it flicker
+//			this.flicker(20, function(){
+//				this.alive = false;
+//				me.game.remove(this);
+//			});
+                    game.data.lives -= 3;
+		}
+                
+	}
+        
+    
+     
 });

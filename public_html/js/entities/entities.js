@@ -338,17 +338,27 @@ game.LavaEntity = me.ObjectEntity.extend ({
     
      onCollision : function (res, obj){
 
-		if (this.alive && (res.y > 0) && obj.falling){
-			// make it flicker
-//			this.flicker(20, function(){
-//				this.alive = false;
-//				me.game.remove(this);
-//			});
-                    game.data.lives -= 3;
-		}
-                
+		
+                game.data.lives -= 3;
 	}
         
     
      
+});
+game.ResetEntity = me.ObjectEntity.extend({
+   onCollision : function(res, obj){
+       
+       // reset the score
+		game.data.score = 0;
+                game.data.lives = 3;
+                 me.levelDirector.loadLevel("level1");
+                 this.resetPlayer(0, 420);
+                
+
+		// add our HUD to the game world
+		this.HUD = new game.HUD.Container();
+		me.game.world.addChild(this.HUD);
+   }
+    
+    
 });

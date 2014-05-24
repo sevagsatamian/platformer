@@ -20,18 +20,18 @@ game.PlayerEntity = me.ObjectEntity.extend({
             me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
            
   },
-          onResetEvent: function() {
-		// reset the score
-		game.data.score = 0;
-                game.data.lives = 3;
-                 me.levelDirector.loadLevel("level1");
-                 this.resetPlayer(0, 420);
-                
-
-		// add our HUD to the game world
-		this.HUD = new game.HUD.Container();
-		me.game.world.addChild(this.HUD);
-	},
+//          onResetEvent: function() {
+//		// reset the score
+//		game.data.score = 0;
+//                game.data.lives = 3;
+//                 me.levelDirector.loadLevel("level1");
+//                 this.resetPlayer(0, 420);
+//                
+//
+//		// add our HUD to the game world
+//		this.HUD = new game.HUD.Container();
+//		me.game.world.addChild(this.HUD);
+//	},
   
      update: function (deltaTime){
         if(me.input.isKeyPressed("d")) {

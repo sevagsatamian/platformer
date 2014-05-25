@@ -63,11 +63,29 @@ game.PlayerEntity = me.ObjectEntity.extend({
 
 			}
 		}
-                   if(game.data.lives===0) {
-//            me.levelDirector.loadLevel("level1");
-              me.levelDirector.reloadLevel();
+                   if(game.data.lives === 0) {
+                       me.levelDirector.loadLevel("level1");
+
         }
-       
+        // check for collision
+    var res = me.game.world.collide(this);
+        if (res) {
+        // if we collide with an enemy
+        if (res.obj.type === me.game.ENEMY_OBJECT) {
+            // check if we jumped on it
+            if ((res.y > 0) && ! this.jumping) {
+                // bounce (force jump)
+                this.falling = false;
+                this.vel.y = -this.maxVel.y * me.timer.tick;
+                // set the jumping flag
+                this.jumping = true;
+ 
+            } else {
+                // let's flicker in case we touched an enemy
+                this.renderable.flicker(750);
+            }
+        }
+    }
         // check & update player movement
         this.updateMovement();
 
@@ -232,18 +250,25 @@ game.SlimeEntity = me.ObjectEntity.extend ({
     
      onCollision : function (res, obj){
 
-		if (this.alive && (res.y > 0) && obj.falling){
-			// make it flicker
-			this.flicker =20;
-//			, function(){
-//				this.alive = false;
-//				me.game.remove(this);
-//			});
-                    game.data.lives -= 1;
-		}
-                
-	},
-        
+//		if (this.alive && (res.y > 0) && obj.falling){
+//			// make it flicker
+//			
+////			, function(){
+////				this.alive = false;
+////				me.game.remove(this);
+////			});
+//                        this.renderable.flicker(750);
+                   
+//		}
+//                
+//	},
+           // res.y >0 means touched by something on the bottom
+        // which mean at top position for this one
+        if (this.alive && (res.y > 0) && obj.falling) {
+            this.renderable.flicker(750);
+            game.data.lives -= 1;
+        }
+    },
      update: function(deltaTime) {
         var collision = this.updateMovement ();
  

@@ -32,7 +32,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
 //		this.HUD = new game.HUD.Container();
 //		me.game.world.addChild(this.HUD);
 //	},
-  
+ //ghj
      update: function (deltaTime){
         if(me.input.isKeyPressed("d")) {
             this.renderable.flipX(false);

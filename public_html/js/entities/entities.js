@@ -20,42 +20,18 @@ game.PlayerEntity = me.ObjectEntity.extend({
             me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
            
   },
-          removeLIVES: function(dmg) {
-		this.lives -= dmg;
-		this.flicker(45);
+          onResetEvent: function() {
+		// reset the score
+		game.data.score = 0;
+                game.data.lives = 3;
+                 me.levelDirector.loadLevel("level1");
+                 this.resetPlayer(0, 420);
+                
 
-		if(this.name === 'player') {
-			me.game.HUD.updateItemValue("lives", -dmg);
-		}
-		if(this.lives <= 0) {
-
-			if(this.name === 'player') {
-				var gib = new game.Death();
-				me.game.add(gib, 3);
-				me.game.sort();
-				game.persistent.other.deathcounter += 1;
-				me.game.remove(this);
-				setTimeout(function() {
-					me.state.change(me.state.MENU);
-				}, 500);
-
-			}
-			me.game.remove(this);
-		}
+		// add our HUD to the game world
+		this.HUD = new game.HUD.Container();
+		me.game.world.addChild(this.HUD);
 	},
-
-//          onResetEvent: function() {
-//		// reset the score
-//		game.data.score = 0;
-//                game.data.lives = 3;
-//                 me.levelDirector.loadLevel("level1");
-//                 this.resetPlayer(0, 420);
-//                
-//
-//		// add our HUD to the game world
-//		this.HUD = new game.HUD.Container();
-//		me.game.world.addChild(this.HUD);
-//	},
   
      update: function (deltaTime){
         if(me.input.isKeyPressed("d")) {

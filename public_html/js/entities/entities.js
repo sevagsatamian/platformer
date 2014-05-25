@@ -20,6 +20,8 @@ game.PlayerEntity = me.ObjectEntity.extend({
             me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
            
   },
+	
+
           onResetEvent: function() {
 		// reset the score
 		game.data.score = 0;
@@ -67,6 +69,19 @@ game.PlayerEntity = me.ObjectEntity.extend({
                        me.levelDirector.loadLevel("level1");
 
         }
+        if(this.lives <= 0) {
+
+		
+				var gib = new game.Death();
+				me.game.add(gib, 3);
+				me.game.sort();
+				game.persistent.other.deathcounter += 1;
+				me.game.remove(this);
+				setTimeout(function() {
+					me.state.change(me.state.MENU);
+				}, 500);
+			me.game.remove(this);
+	}
         // check for collision
     var res = me.game.world.collide(this);
         if (res) {

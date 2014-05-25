@@ -20,12 +20,12 @@ game.PlayerEntity = me.ObjectEntity.extend({
             me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
            
   },
-          removeHP: function(dmg) {
+          removeLIVES: function(dmg) {
 		this.lives -= dmg;
 		this.flicker(45);
 
 		if(this.name === 'player') {
-			me.game.HUD.updateItemValue("health", -dmg);
+			me.game.HUD.updateItemValue("lives", -dmg);
 		}
 		if(this.lives <= 0) {
 

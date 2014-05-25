@@ -15,7 +15,8 @@ game.PlayerEntity = me.ObjectEntity.extend({
             this.renderable.setCurrentAnimation("idle");
             
             me.input.bindKey(me.input.KEY.SPACE, "jump", true);
-         
+            me.input.bindKey(me.input.KEY.UP, "jump", true);
+            me.input.bindKey(me.input.KEY.W, "jump", true);
             this.setVelocity(10,20);
             me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
            

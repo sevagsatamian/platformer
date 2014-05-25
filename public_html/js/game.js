@@ -49,10 +49,14 @@ var game = {
                 //me.state.transition("fade","#FFFFFF", 400);
 
                 me.input.bindKey(me.input.KEY.D, "d");
+                me.input.bindKey(me.input.KEY.W, "w");
                 me.input.bindKey(me.input.KEY.A, "a");
                 me.input.bindKey(me.input.KEY.SPACE, "space");
                 me.input.bindKey(me.input.KEY.S, "s");
-                
+                me.input.bindKey(me.input.KEY.UP, "up");
+                me.input.bindKey(me.input.KEY.LEFT, "left");
+                me.input.bindKey(me.input.KEY.RIGHT, "right");
+                me.input.bindKey(me.input.KEY.DOWN, "down");
                 //ITEMS
                  me.pool.register("CoinEntity", game.CoinEntity, true);
                  me.pool.register("StarEntity", game.StarEntity, true);

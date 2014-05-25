@@ -20,6 +20,30 @@ game.PlayerEntity = me.ObjectEntity.extend({
             me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
            
   },
+          removeHP: function(dmg) {
+		this.lives -= dmg;
+		this.flicker(45);
+
+		if(this.name === 'player') {
+			me.game.HUD.updateItemValue("health", -dmg);
+		}
+		if(this.lives <= 0) {
+
+			if(this.name === 'player') {
+				var gib = new game.Death();
+				me.game.add(gib, 3);
+				me.game.sort();
+				game.persistent.other.deathcounter += 1;
+				me.game.remove(this);
+				setTimeout(function() {
+					me.state.change(me.state.MENU);
+				}, 500);
+
+			}
+			me.game.remove(this);
+		}
+	},
+
 //          onResetEvent: function() {
 //		// reset the score
 //		game.data.score = 0;
@@ -99,9 +123,8 @@ game.PlayerEntity = me.ObjectEntity.extend({
                                 
 			});
 			return true;
-		} 
-                
-                  
+		}
+
         
         var collision = me.game.world.collide(this);
         this.updateMovement();
@@ -233,6 +256,7 @@ game.SlimeEntity = me.ObjectEntity.extend ({
         settings.width = 60;
         settings.height = 28;
         this.parent (x, y, settings);
+        this.hp = 1;
         
         this.setVelocity(4,1 );
         // make it collidable
@@ -371,24 +395,52 @@ game.LavaEntity = me.ObjectEntity.extend ({
      
 });
 game.ResetEntity = me.ObjectEntity.extend({
-   onCollision : function(){
-       
-       // reset the score
-		game.data.score = 0;
-                game.data.lives = 3;
-                me.levelDirector.reLoadLevel;
-                this.resetPlayer(0, 420);
-                 
-   
-		// add our HUD to the game world
-		this.HUD = new game.HUD.Container();
-                me.game.world.addChild(this.HUD);
-            },
-     resetPlayer: function(x, y){
-               var player = me.pool.pull("player", x, y, {});
-               me.game.world.addChild(player, 100);
-               
-   }
+//   onCollision : function(){
+//       
+//       // reset the score
+//		game.data.score = 0;
+//                game.data.lives = 3;
+//                me.levelDirector.reLoadLevel;
+//                this.resetPlayer(0, 420);
+//                 
+//   
+//		// add our HUD to the game world
+//		this.HUD = new game.HUD.Container();
+//                me.game.world.addChild(this.HUD);
+//            },
+//     resetPlayer: function(x, y){
+//               var player = me.pool.pull("player", x, y, {});
+//               me.game.world.addChild(player, 100);
+//               
+//   },
     
-    
+    init: function() {
+		var self = this;
+		this.player = me.game.getEntityByName("player")[0];
+		var x = this.player.pos.x;
+		var y = this.player.pos.y;
+		self.parent(x, y, {image: "chargib", spritewidth: 32});
+		self.init = true;
+
+		self.gravity = 0;
+		self.animationspeed = 4;
+
+		this.pos.x = x;
+		this.pos.y = y;
+	},
+
+	update: function() {
+		var self = this;
+
+		if(self.init) {
+			setTimeout(function() {
+				me.game.remove(self);
+			}, 500);
+			self.init = false;
+		}
+
+		this.parent(this);
+
+		return true;
+	}
 });
